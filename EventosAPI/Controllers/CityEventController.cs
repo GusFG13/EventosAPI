@@ -54,7 +54,7 @@ namespace EventosAPI.Controllers
             return Ok(result);
         }
 
-        /****************************************/
+
         // Consulta por local e data;
 
         [HttpGet("{local}/{date:DateTime}")]
@@ -65,8 +65,6 @@ namespace EventosAPI.Controllers
             return Ok(result);
         }
 
-
-        /****************************************/
 
         [HttpPost] // Inclusão de um novo evento; *Autenticação e Autorização admin
         public async Task<IActionResult> AddEvent([FromBody] CityEvent cityEvent)

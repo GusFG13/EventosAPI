@@ -32,16 +32,16 @@ namespace EventosAPI.Controllers
 
             return Ok(result);
         }
-        /**************************************************/
+
         //incluir método na service e interface
         [HttpGet("{personName}/{partialEventTitle}")] // Consulta de reserva pelo PersonName e Title do evento, utilizando similaridade para o title; *Autenticação
-        public async Task<IActionResult> GetEventByPersonNamePartialTitle(int id)
+        public async Task<IActionResult> GetReservationByPersonNamePartialTitle(string personName, string partialEventTitle)
         {
-            var result = await _eventReservationService.GetReservation(id);
+            var result = await _eventReservationService.GetReservByPersonNamePartialTitle(personName, partialEventTitle);
 
             return Ok(result);
         }
-        /**************************************************/
+
         [HttpPost] // Inclusão de uma nova reserva; *Autenticação
         public async Task<IActionResult> AddEvent([FromBody] EventReservation eventReservation)
         {

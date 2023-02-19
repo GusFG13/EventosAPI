@@ -30,6 +30,12 @@ namespace EventosAPI.Services
             return reservationList;
         }
 
+        public async Task<List<EventReservation>> GetReservByPersonNamePartialTitle(string personName, string partialEventTitle)
+        {                                                                 
+            var reservationList = await _dbService.GetAll<EventReservation>("SELECT E.* FROM EventReservation E join CityEvent C ON E.idEvent=C.idEvent WHERE E.personName='" + personName + "' and C.title LIKE '%" + partialEventTitle + "%';", new { });
+            return reservationList;
+        }
+
         public async Task<EventReservation> GetReservation(int id)
         {
             var reservationById = await _dbService.GetAsync<EventReservation>("SELECT * FROM EventReservation where idReservation=@id", new { id });

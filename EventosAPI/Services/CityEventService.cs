@@ -42,9 +42,6 @@ namespace EventosAPI.Services
             var eventList = await _dbService.GetAll<CityEvent>("SELECT * FROM CityEvent WHERE price >= @precoMin and price <= @precoMax and dateHourEvent = @date", new { precoMin, precoMax, date });
             return eventList;
         }
-        /*********************************************/
-
-        //GetEventListByLocalAndDate
 
         public async Task<List<CityEvent>> GetEventListByLocalAndDate(string local, DateTime date)
         {
@@ -52,7 +49,6 @@ namespace EventosAPI.Services
             return eventList;
         }
 
-        /*********************************************/
         public async Task<CityEvent> GetEvent(int id)
         {
             var eventById = await _dbService.GetAsync<CityEvent>("SELECT * FROM CityEvent WHERE idEvent=@id", new { id });
