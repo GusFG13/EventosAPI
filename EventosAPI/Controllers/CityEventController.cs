@@ -92,14 +92,24 @@ namespace EventosAPI.Controllers
         [HttpDelete("{id:int}")] // Remoção de um evento, caso o mesmo não possua reservas em andamento, caso possua inative-o; *Autenticação e Autorização admin
         public async Task<IActionResult> DeleteEvent(int id)
         {
-            var reservationForEventExist = _eventReservationService.GetReservation(id);
-            var result = await _cityEventService.DeleteEvent(id);
-
-            if (result)
+            List<EventReservation> reservationForEventExist = await _eventReservationService.GetReservationByEvent(id);
+            if (reservationForEventExist.Count == 0) // verifica se existe reservas para o evento
             {
+                var result = await _cityEventService.DeleteEvent(id);
+
+                if (result)
+                {
+                    return Ok(result);
+                }
+                return NotFound(id);
+            }
+            else
+            {
+                var cityEvent = await _cityEventService.GetEvent(id);
+                cityEvent.Status = false;
+                var result = await _cityEventService.UpdateEvent(cityEvent);
                 return Ok(result);
             }
-            return NotFound(id);
         }
     }
 }

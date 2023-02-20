@@ -42,6 +42,12 @@ namespace EventosAPI.Services
             return reservationById;
         }
 
+        public async Task<List<EventReservation>> GetReservationByEvent(int idEvent)
+        {
+            var reservationList = await _dbService.GetAll<EventReservation>("SELECT * FROM EventReservation WHERE idEvent=@idEvent", new { idEvent });//corrigir concatenação
+            return reservationList;
+        }
+
         public async Task<EventReservation> UpdateReservation(EventReservation eventReservation)
         {
             var updateReservation =

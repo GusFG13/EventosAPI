@@ -10,5 +10,6 @@ namespace EventosAPI.Services
         Task<EventReservation> UpdateReservation(EventReservation eventReservation);
         Task<bool> DeleteReservation(int id);
         Task<List<EventReservation>> GetReservByPersonNamePartialTitle(string personName, string partialEventTitle);
+        Task<List<EventReservation>> GetReservationByEvent(int idEvent);
     }
 }
